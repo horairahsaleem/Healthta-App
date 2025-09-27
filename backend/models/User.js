@@ -64,13 +64,16 @@ const userSchema = new mongoose.Schema({
     // 🔗 Social Login (from Figma buttons)
     googleId: { type: String, sparse: true },
     facebookId: { type: String, sparse: true },
-    
+
     // 🏷️ User Type (for different dashboards)
     role: {
         type: String,
         enum: ['patient', 'doctor', 'admin'],
         default: 'patient'
     },
+emailVerificationToken: String,
+emailVerificationExpires: Date,
+
     
     // ✅ Account Status
     isVerified: { type: Boolean, default: false },

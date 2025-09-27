@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.post('/signup', authLimiter, validateSignup, signup);
 router.post('/login', authLimiter, login);
-router.post('/social-login', authLimiter, socialLogin);
+router.post('/social-login', socialLogin);
 router.get('/verify-email/:token', verifyEmail);
 
 export default router;
