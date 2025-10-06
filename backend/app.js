@@ -8,7 +8,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: ["http://localhost:3000", "https://effortless-swan-b08432.netlify.app"],
+    origin: ["http://localhost:5173", "https://effortless-swan-b08432.netlify.app"],
     credentials: true,
   })
 );
