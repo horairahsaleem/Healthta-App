@@ -4,6 +4,9 @@ import ErrorMiddleware from "./middleware/error.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 
+import user from './routes/authRoutes.js'
+
+
 const app = express();
 
 app.use(
@@ -18,6 +21,9 @@ dotenvConfig({ path: "./Config/config.env" });
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use("/api/v1", user);
+
 
 // Health check
 app.get("/", (req, res) => {

@@ -1,14 +1,10 @@
 import jwt from "jsonwebtoken";
-import { generateToken } from "./token.js";
-
 
 export const sendTokenResponse = (user, res, message = "Success") => {
   // 1. Generate JWT token
-  // const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-  //   expiresIn: process.env.JWT_EXPIRE || "7d",
-  // });
-    const token = generateToken(user._id);
-
+  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRE || "7d",
+  });
 
   // 2. Cookie options
   const cookieOptions = {

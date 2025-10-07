@@ -1,5 +1,3 @@
-<<<<<<< Updated upstream
-=======
 import bcrypt from "bcryptjs";
 import User from "../models/User.js";
 import { sendVerificationEmail, sendWelcomeEmail } from "../utils/sendEmail.js";
@@ -11,7 +9,7 @@ import { catchAsyncError } from "../middleware/catchAsyncError.js";
 import crypto from "crypto";
 
 export const signup = catchAsyncError(async (req, res, next) => {
-  const { firstName, lastName, city, email, phone, sex, language, password } = req.body;
+  const { firstName, lastName, title, city, email, phoneNumber, biologicalSex, language, password } = req.body;
 
   const existingUser = await User.findOne({ email: email.toLowerCase() });
   if (existingUser) return next(new ErrorHandler("User already exists with this email", 400));
@@ -22,15 +20,15 @@ export const signup = catchAsyncError(async (req, res, next) => {
   // Generate verification token (random string)
   const verificationToken = crypto.randomBytes(32).toString("hex");
   const verificationExpires = Date.now() + 1000 * 60 * 60; // 1 hour
-console.log("Signup Data:", req.body);
 
   const user = await User.create({
     firstName,
     lastName,
+    title,
     city,
     email: email.toLowerCase(),
-    phone,
-    sex,
+    phoneNumber,
+    biologicalSex,
     language: language || "English",
     password: hashedPassword,
     emailVerificationToken: verificationToken,
@@ -58,9 +56,6 @@ export const login = catchAsyncError(async (req, res, next) => {
 
   const isMatch = await bcrypt.compare(password, user.password);
   if (!isMatch) return next(new ErrorHandler("Invalid email or password", 401));
-    if (!user.isVerified) {
-    return next(new ErrorHandler("Please verify your email before logging in", 403));
-  }
 
   if (!user.isActive) return next(new ErrorHandler("Account has been deactivated", 401));
 
@@ -115,51 +110,15 @@ export const verifyEmail = catchAsyncError(async (req, res, next) => {
 sendWelcomeEmail(user)
   // Redirect user to frontend login page
   // res.redirect(`${process.env.FRONTEND_URL}/login?verified=true`);  // only when you have login page 
-res.type("html").send(`
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <title>Email Verified</title>
-          <style>
-            body { font-family: Arial, sans-serif; background: #f9fafb; text-align: center; padding: 50px; }
-            .card { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); display: inline-block; }
-            h1 { color: green; }
-            p { color: #333; }
-            a { display: inline-block; margin-top: 20px; padding: 10px 20px; background: #3182CE; color: white; text-decoration: none; border-radius: 6px; }
-            a:hover { background: #2b6cb0; }
-          </style>
-        </head>
-        <body>
-          <div class="card">
-            <h1>✅ Email Verified Successfully</h1>
-            <p>You can now log in and start using Healthta.</p>
-            <a href="http://localhost:5173/login">Go to Login</a>
-          </div>
-        </body>
-      </html>
-    `);  // temporary
-});
-
-export const getMyProfile = async (req, res) => {
-  try {
-    const user = await User.findById(req.user._id);
-
-    if (!user) {
-      return res.status(404).json({
-        success: false,
-        message: "User not found",
-      });
-    }
-
-    res.status(200).json({
-      success: true,
-      user,
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: error.message,
-    });
+res.json({
+  success: true,
+  message: 'Email verified successfully',
+  user: {
+    id: user._id,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    email: user.email,
+    isVerified: user.isVerified
   }
-};
->>>>>>> Stashed changes
+});  // temporary
+});

@@ -1,5 +1,3 @@
-<<<<<<< Updated upstream
-=======
 import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
@@ -16,11 +14,11 @@ const userSchema = new mongoose.Schema({
         trim: true,
         maxlength: [50, 'Last name cannot exceed 50 characters']
     },
-    // title: {
-    //     type: String,
-    //     required: function() { return !this.googleId && !this.facebookId; },
-    //     enum: ['Mr', 'Mrs', 'Prof', 'Doc']
-    // },
+    title: {
+        type: String,
+        required: function() { return !this.googleId && !this.facebookId; },
+        enum: ['Mr', 'Mrs', 'Prof', 'Doc']
+    },
     
     // 📍 Location (from Figma)
     city: {
@@ -37,14 +35,14 @@ const userSchema = new mongoose.Schema({
         lowercase: true,
         match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please enter a valid email']
     },
-    phone: {
+    phoneNumber: {
         type: String,
         required: function() { return !this.googleId && !this.facebookId; },
         match: [/^\+?[\d\s-()]{10,}$/, 'Please enter a valid phone number']
     },
     
     // 👫 Personal Details (from Figma)
-    sex: {
+    biologicalSex: {
         type: String,
         required: function() { return !this.googleId && !this.facebookId; },
         enum: ['Male', 'Female', 'Other']
@@ -139,4 +137,3 @@ userSchema.index({ city: 1 });
 userSchema.index({ createdAt: -1 });
 
 export default mongoose.model('User', userSchema);
->>>>>>> Stashed changes

@@ -1,6 +1,4 @@
-<<<<<<< Updated upstream
-=======
-import { verifyToken } from '../utils/token.js';
+import { verifyToken } from '../utils/generateToken.js';
 import User from '../models/User.js';
 
 export const protect = async (req, res, next) => {
@@ -56,4 +54,3 @@ export const authorize = (...roles) => {
     next();
   };
 };
->>>>>>> Stashed changes

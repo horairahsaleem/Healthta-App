@@ -69,10 +69,10 @@ from: '"Healthta" <horairahsaleem7864@gmail.com>',
         </ul>
         
         <p>Start your health journey today!</p>
-        <a href="${process.env.FRONTEND_URL}/login" 
+        <a href="${process.env.FRONTEND_URL}/dashboard" 
            style="background-color: #2563eb; color: white; padding: 12px 24px; 
                   text-decoration: none; border-radius: 5px; display: inline-block;">
-          Login from here
+          Go to Dashboard
         </a>
       </div>
     `,
