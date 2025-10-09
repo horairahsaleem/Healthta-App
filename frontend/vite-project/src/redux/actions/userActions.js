@@ -5,7 +5,7 @@ import { server } from "../store/store.js";
 
 export const register = (formData) => async (dispatch) => {
   try {
-    dispatch({ type: "registerRequest" });
+    dispatch({ type: "registerRequest"  });
 
     const { data } = await axios.post(`${server}/register`, formData, {
       headers: { "Content-type": "application/json" },
@@ -24,7 +24,7 @@ export const register = (formData) => async (dispatch) => {
     throw error;
   }
 };
-
+   
 // LOGIN
 export const login = (email, password) => async (dispatch) => {
   try {
@@ -82,7 +82,7 @@ export const socialLogin = (provider, providerToken = "", extraData = {}) => asy
     dispatch({ type: "loginSuccess", payload: data });
 
     // populate redux user using cookie (backend set cookie)
-    await dispatch(loadUser());
+    // await dispatch(loadUser());       //  make it active when the user is logged in 
 
     return data;
   } catch (err) {

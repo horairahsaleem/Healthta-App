@@ -169,7 +169,7 @@ const Login = () => {
             <Divider borderColor="gray.300" />
           </HStack>
 
-          <VStack spacing={4} w="100%" maxW="528px">
+          {/* <VStack spacing={4} w="100%" maxW="528px">
             <Button
               w="100%"
               h="60px"
@@ -214,7 +214,7 @@ const Login = () => {
                 Continue with Facebook
               </Text>
             </Button>
-          </VStack>
+          </VStack> */}
         </VStack>
       </Flex>
 
