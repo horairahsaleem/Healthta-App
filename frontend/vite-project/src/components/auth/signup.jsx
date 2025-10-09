@@ -22,6 +22,9 @@ import { useNavigate } from "react-router-dom";
 import { useGoogleLogin } from "@react-oauth/google";
 import { socialLogin } from "../../redux/actions/userActions.js";
 import axios from "axios"; // only for fallback if access_token present
+import { useDisclosure } from "@chakra-ui/react";
+import SupportModal from "../contact/contact";
+
 
 
 const SignUp = () => {
@@ -39,6 +42,7 @@ const SignUp = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+const { isOpen, onOpen, onClose } = useDisclosure();
 
 
 // inside component
@@ -264,9 +268,23 @@ const googleLogin = useGoogleLogin({
       {/* RIGHT SIDE */}
       <Flex direction="column" bg="#001439" flex="0 0 50%" p={{ base: 3, md: "8px 32px 24px 32px" }} align="stretch" justify="flex-start">
         <Flex direction="column" height="100%" align="center" justify="flex-start" position="relative">
-          <Button position="absolute" top={{ base: "4px", md: "6px" }} left="50%" transform="translateX(-50%)" zIndex={3} variant="ghost" leftIcon={<MdSupport color="white" />} size="sm" color="white" _hover={{ bg: "transparent" }}>
+<Button
+  position="absolute"
+  top={{ base: "4px", md: "6px" }}
+  left="50%"
+  transform="translateX(-50%)"
+  zIndex={3}
+  variant="ghost"
+  leftIcon={<MdSupport color="white" />}
+  size="sm"
+  color="white"
+  _hover={{ bg: "transparent" }}
+  onClick={onOpen}
+>
             <Text fontSize={{ base: "13px", md: "15px" }} fontWeight="600" color="white">Support</Text>
           </Button>
+          <SupportModal isOpen={isOpen} onClose={onClose} />
+
 
           <Box mt={{ base: "36px", md: "56px" }} />
           <Box w={{ base: "80%", md: "380px" }} h={{ base: "240px", md: "570px" }} borderRadius="20px" overflow="hidden" bg="#001439" display="flex" alignItems="center" justifyContent="center" flexShrink={0}>
