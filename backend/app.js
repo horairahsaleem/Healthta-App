@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 
 import user from './routes/authRoutes.js'
+import other from './routes/otherRoutes.js'
 
 
 const app = express();
@@ -23,6 +24,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/v1", user);
+app.use("/api/v1", other);
 
 
 // Health check

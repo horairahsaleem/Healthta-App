@@ -117,3 +117,23 @@ from: '"Healthta" <horairahsaleem7864@gmail.com>',
 
 // }
 
+export const sendContactEmail = async (to,subject,text) => {
+  const transporter = createTransporter();
+
+  const mailOptions = {
+from: '"Healthta" <horairahsaleem7864@gmail.com>',
+    to,
+    subject,
+    text
+   
+  };
+
+  try {
+    const result = await transporter.sendMail(mailOptions);
+    console.log('✅ contact email sent to:');
+    return result;
+  } catch (error) {
+    console.error('❌ contact email failed:', error);
+    throw error;
+  }
+};
