@@ -35,7 +35,7 @@ const Login = () => {
   // Redirect after successful login
   useEffect(() => {
     if (isAuthenticated) {
-      navigate("/dashboard"); // go to dashboard after login
+      navigate("/onboarding"); // go to dashboard after login
     }
   }, [isAuthenticated, navigate]);
 

@@ -24,6 +24,7 @@ import { socialLogin } from "../../redux/actions/userActions.js";
 import axios from "axios"; // only for fallback if access_token present
 import { useDisclosure } from "@chakra-ui/react";
 import SupportModal from "../contact/contact";
+import ContinueWithFacebook from '../Helpers/ContinueFaceBookError.jsx'
 
 
 
@@ -42,7 +43,17 @@ const SignUp = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-const { isOpen, onOpen, onClose } = useDisclosure();
+const {
+    isOpen: isSupportOpen,
+    onOpen: onSupportOpen,
+    onClose: onSupportClose,
+  } = useDisclosure();
+
+  const {
+    isOpen: isFbOpen,
+    onOpen: onFbOpen,
+    onClose: onFbClose,
+  } = useDisclosure();
 
 
 // inside component
@@ -95,7 +106,7 @@ const googleLogin = useGoogleLogin({
       );
 
       // socialLogin action calls loadUser(); navigate after that
-      navigate("/dashboard");
+      navigate("/onboarding");
     } catch (err) {
       // helpful debug logs
       console.error("Google social login failed:", err?.response?.data || err.message || err);
@@ -257,10 +268,12 @@ const googleLogin = useGoogleLogin({
               <Image src="/images/googleicon.png" alt="Google" w="26px" h="25px" mr="8px" />
               <Text fontSize="16px" fontWeight="500" color="gray.700">Continue with Google</Text>
             </Button>
-            <Button w="100%" h="60px" border="1px solid" borderColor="gray.300" borderRadius="27px" justifyContent="flex-start" pl="24px" gap="12px" bg="white">
+            <Button onClick={onFbOpen}  w="100%" h="60px" border="1px solid" borderColor="gray.300" borderRadius="27px" justifyContent="flex-start" pl="24px" gap="12px" bg="white">
               <Image src="/images/fbicon.png" alt="Facebook" w="26px" h="25px" mr="8px" />
               <Text fontSize="16px" fontWeight="500" color="gray.700">Continue with Facebook</Text>
             </Button>
+                  <ContinueWithFacebook isOpen={isFbOpen} onClose={onFbClose} />
+
           </VStack>
         </VStack>
       </Flex>
@@ -279,11 +292,11 @@ const googleLogin = useGoogleLogin({
   size="sm"
   color="white"
   _hover={{ bg: "transparent" }}
-  onClick={onOpen}
+  onClick={onSupportOpen}
 >
             <Text fontSize={{ base: "13px", md: "15px" }} fontWeight="600" color="white">Support</Text>
           </Button>
-          <SupportModal isOpen={isOpen} onClose={onClose} />
+          <SupportModal isOpen={isSupportOpen} onClose={onSupportClose} />
 
 
           <Box mt={{ base: "36px", md: "56px" }} />

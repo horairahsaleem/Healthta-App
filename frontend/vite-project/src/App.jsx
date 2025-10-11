@@ -9,6 +9,7 @@ import Login from "./components/auth/login.jsx";
 import HomePage from "./components/dashboard/homepage";
 import Dashboard from "./components/dashboard/dashboard.jsx";
 import { loadUser } from "./redux/actions/userActions.js";
+import OnboardingPage from './components/onboarding/onBoarding.jsx'
 
 /**
  * AppToasts: small helper inside App that shows ONE toast at a time.
@@ -99,6 +100,7 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/onboarding" element={<OnboardingPage/>} />
       </Routes>
     </>
   );
